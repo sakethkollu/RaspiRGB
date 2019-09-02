@@ -8,9 +8,9 @@ pins = {"red" : 17, "green" : 22, "blue" : 24}
 for pin in [17,22,24]:
     GPIO.setup(pin, GPIO.OUT)
 
-red = GPIO.PWM(17, 255)
-green = GPIO.PWM(22, 255)
-blue = GPIO.PWM(24, 255)
+red = GPIO.PWM(17, 100)
+green = GPIO.PWM(22, 100)
+blue = GPIO.PWM(24, 100)
 
 red.start(0)
 green.start(0)
@@ -30,7 +30,7 @@ while True:
         data = json.loads(dataFromClient)
 
         color = str(data["color"])
-        power = min(255, int(data["power"]))
+        power = min(100, int(data["power"]) / 255 * 100)
 
         print(str(color), power)
 
