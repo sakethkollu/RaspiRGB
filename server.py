@@ -4,7 +4,7 @@ import json
 GPIO.setmode(GPIO.BCM)
 pins = {"red" : 17, "green" : 22, "blue" : 24}
 
-for color, pin in pins:
+for pin in [17,22,24]:
     GPIO.setup(pin, GPIO.OUT)
 
 red = GPIO.PWM(17, 100)
