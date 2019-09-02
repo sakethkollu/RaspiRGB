@@ -8,9 +8,9 @@ pins = {"red" : 17, "green" : 22, "blue" : 24}
 for pin in [17,22,24]:
     GPIO.setup(pin, GPIO.OUT)
 
-red = GPIO.PWM(17, 100)
-green = GPIO.PWM(22, 100)
-blue = GPIO.PWM(24, 100)
+red = GPIO.PWM(17, 255)
+green = GPIO.PWM(22, 255)
+blue = GPIO.PWM(24, 255)
 
 red.start(0)
 green.start(0)
@@ -26,31 +26,32 @@ while True:
     try:
         dataFromClient, address = server_socket.recvfrom(256)
         dataFromClient = dataFromClient.rstrip()
-        
+
         data = json.loads(dataFromClient)
-        
-        color = data["color"]
-        power = data["power"]
 
-        print(color, power)
+        color = str(data["color"])
+        power = min(255, int(data["power"]))
 
-        '''
-        if color.equals("red"):
+        print(str(color), power)
+
+
+        if color == "red":
             red.ChangeDutyCycle(power)
-            sleep(0.01)
-        if color.equals("green"):
+
+        if color == "green":
             green.ChangeDutyCycle(power)
-            sleep(0.01)
-        if color.equals("blue"):
+    
+        if color == "blue":
             blue.ChangeDutyCycle(power)
-            sleep(0.01)'''
-        
+
+        sleep(0.01)
+
 
     except Exception as e:
         print(e)
         print("Incorrect data recieved from client")
 
-red.stop()      # Stop the PWM
-green.stop()  
-blue.stop()  
-GPIO.cleanup()  # Make all the output pins LOW
+red.stop()
+green.stop()
+blue.stop()
+GPIO.cleanup()
