@@ -42,6 +42,11 @@ options = {    "0" : red_on,
 
 # Recive data from client and decide which function to call
 while True:
-    dataFromClient, address = server_socket.recvfrom(256)
-    dataFromClient = dataFromClient.rstrip()
-    options[dataFromClient]()
+    try:
+        dataFromClient, address = server_socket.recvfrom(256)
+        dataFromClient = dataFromClient.rstrip()
+        print(dataFromClient)
+        options[dataFromClient]()
+    except Exception as e:
+        print(e)
+        print("Incorrect data recieved from client")

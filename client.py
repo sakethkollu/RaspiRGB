@@ -6,10 +6,9 @@ while 1:
         data = input("Enter Data :")
         IPADRESS = "192.168.1.137"
         # 6666 = Number Port
-        client_socket.sendto(data, (IPADRESS,6666))
+        client_socket.sendto(data.encode(), (IPADRESS,6666))
         print ("Sending request")
     except Exception as ex:
         print(ex)
-        break
 
 client_socket.close()
