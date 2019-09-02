@@ -14,7 +14,7 @@ while True:
     try:
         dataFromClient, address = server_socket.recvfrom(256)
         dataFromClient = dataFromClient.rstrip()
-        print(dataFromClient.keys())
+        data = dict(dataFromClient)
     except Exception as e:
         print(e)
         print("Incorrect data recieved from client")
