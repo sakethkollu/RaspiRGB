@@ -1,10 +1,17 @@
+import RPi.GPIO as GPIO
 import socket
-import pigpio
 import json
-
-pi = pigpio.pi()
-
+GPIO.setmode(GPIO.BCM)
 pins = {"red" : 17, "green" : 22, "blue" : 24}
+
+for color, pin in pins:
+    GPIO.setup(pin, GPIO.OUT)
+
+red = GPIO.PWM(17, 100)
+green = GPIO.PWM(22, 100)
+blue = GPIO.PWM(24, 100)
+
+red.start(50)
 
 # Create a Server Socket and wait for a client to connect
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -21,9 +28,12 @@ while True:
         
         color = data["color"]
         power = data["power"]
-
+        
         pi.set_PWM_dutycycle(pins[color], power)
 
     except Exception as e:
         print(e)
         print("Incorrect data recieved from client")
+
+pwm.stop()      # Stop the PWM
+GPIO.cleanup()  # Make all the output pins LOW
