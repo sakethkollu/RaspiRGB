@@ -32,6 +32,9 @@ while True:
         color = data["color"]
         power = data["power"]
 
+        print(color, power)
+
+        '''
         if color.equals("red"):
             red.ChangeDutyCycle(power)
             sleep(0.01)
@@ -40,7 +43,7 @@ while True:
             sleep(0.01)
         if color.equals("blue"):
             blue.ChangeDutyCycle(power)
-            sleep(0.01)
+            sleep(0.01)'''
         
 
     except Exception as e:
