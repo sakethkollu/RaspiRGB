@@ -1,5 +1,6 @@
 import socket
 import pigpio
+import json
 
 pi = pigpio.pi()
 
@@ -13,7 +14,7 @@ while True:
     try:
         dataFromClient, address = server_socket.recvfrom(256)
         dataFromClient = dataFromClient.rstrip()
-        print(dataFromClient)
+        print(dataFromClient.keys())
     except Exception as e:
         print(e)
         print("Incorrect data recieved from client")
